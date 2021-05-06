@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Arsenal.123'
+app.config['MYSQL_PASSWORD'] = 'SimonSimon'
 app.config['MYSQL_DB'] = 'network'
 CORS(app)
 mysql = MySQL(app)
@@ -212,7 +212,7 @@ def delete_requirement():
 ## Complex Queries ##
 
 # Get all Students who applied to a certain Company with GPA of >= 85
-@app.route('/complex', methods = ['GET'])
+@app.route('/complex1', methods = ['GET'])
 def get_First_Query():
     json = request.json
     cur = mysql.connection.cursor()
@@ -223,6 +223,32 @@ def get_First_Query():
     for row in cur:
         res.append(row)
     return jsonify(res)
+
+# Get all job openings with a salary offering of more than 10,000$
+@app.route('/complex2', methods = ['GET'])
+def get_Second_Query():
+    json = request.json
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT company_name, job_name, amount FROM jobposition inner join company on jobposition.company_id=company.company_id  inner join salary on jobposition.job_id=salary.job_id WHERE amount > 10000")
+    res = []
+    for row in cur:
+        res.append(row)
+    return jsonify(res)
+
+# Get all job openings with an "intern" term in the description from murex
+@app.route('/complex3', methods = ['GET'])
+def get_Third_Query():
+    json = request.json
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT company_name, job_name FROM jobposition inner join company on jobposition.company_id=company.company_id WHERE job_name like '%intern%' and company_name = 'murex'")
+    res = []
+    for row in cur:
+        res.append(row)
+    return jsonify(res)
+
+
+
+
 
 
 
