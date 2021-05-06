@@ -134,20 +134,6 @@ CREATE TABLE `network`.`representative` (
      ON UPDATE CASCADE
 );
 
-
-CREATE TABLE `network`.`representative` (
-    `company_id` INT(10) NOT NULL,
-    `email` VARCHAR(20) NOT NULL,
-    `phone_number` INT(8) NOT NULL,
-    `rep_name` VARCHAR(20) NOT NULL,
-    `positions` VARCHAR(20) NOT NULL,
-    PRIMARY KEY (`company_id`, `email`),
-    FOREIGN KEY (`company_id`)
-     REFERENCES `network`.`company` (`company_id`)
-     ON DELETE CASCADE
-     ON UPDATE CASCADE
-);
-
 CREATE TABLE `network`.`review` (
     `review_id` INT(10) NOT NULL,
     `company_id` INT(10) NOT NULL,

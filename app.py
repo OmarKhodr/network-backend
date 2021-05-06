@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'scout is on saturday'
+app.config['MYSQL_PASSWORD'] = 'Arsenal.123'
 app.config['MYSQL_DB'] = 'network'
 CORS(app)
 mysql = MySQL(app)
@@ -28,6 +28,15 @@ def delete_student():
     json = request.json
     cur = mysql.connection.cursor()
     cur.execute("DELETE FROM student where id = %s", [json['id']])
+    mysql.connection.commit()
+    cur.close()
+    return 'success'
+
+@app.route('/student', methods = ['PATCH'])
+def update_student():
+    json = request.json
+    cur = mysql.connection.cursor()
+    cur.execute("Update student SET email = %s WHERE id = %s", [json['email'], json['id']])
     mysql.connection.commit()
     cur.close()
     return 'success'
@@ -91,7 +100,15 @@ def delete_degree():
     mysql.connection.commit()
     cur.close()
     return 'success'
-
+    
+@app.route('/degree', methods = ['PATCH'])
+def update_degree():
+    json = request.json
+    cur = mysql.connection.cursor()
+    cur.execute("Update degree SET GPA = %s WHERE student_id = %s", [json['GPA'], json['student_id']])
+    mysql.connection.commit()
+    cur.close()
+    return 'success'
 
 
 # SKILL #
