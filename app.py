@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Arsenal.123'
+app.config['MYSQL_PASSWORD'] = 'SimonSimon'
 app.config['MYSQL_DB'] = 'network'
 CORS(app)
 mysql = MySQL(app)
@@ -130,3 +130,89 @@ def delete_skill():
     mysql.connection.commit()
     cur.close()
     return 'success'
+
+
+
+
+#JOB POSITION  
+@app.route('/position', methods=['POST'])
+def add_position():
+    json = request.json
+    cur = mysql.connection.cursor()
+    cur.execute("INSERT INTO jobposition VALUES (%s, %s, %s, %s, %s)", (json['job_id'], json['company_id'], json['job_name'], json['location'], json['n_openings']))
+    mysql.connection.commit()
+    cur.close()
+    return 'success'
+
+@app.route('/position', methods=['DELETE'])
+def delete_position():
+    json = request.json
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE FROM jobposition where job_id = %s" , (json['job_id']))
+    mysql.connection.commit()
+    cur.close()
+    return 'success'
+
+@app.route('/position', methods = ['PATCH'])
+def update_position():
+    json = request.json
+    cur = mysql.connection.cursor()
+    cur.execute("Update jobposition SET job_name = %s WHERE job_id = %s", ([json['job_name'], json['job_id']]))
+    mysql.connection.commit()
+    cur.close()
+    return 'success'
+
+
+
+#SALARY
+@app.route('/salary', methods=['POST'])
+def add_salary():
+    json = request.json
+    cur = mysql.connection.cursor()
+    cur.execute("INSERT INTO salary VALUES (%s, %s, %s, %s, %s)", (json['job_id'], json['amount'], json['bonus'], json['stocks'], json['payment_rate']))
+    mysql.connection.commit()
+    cur.close()
+    return 'success'  
+
+@app.route('/salary', methods=['DELETE'])
+def delete_salary():
+    json = request.json
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE FROM salary where job_id = %s and amount = %s" , (json['job_id'], json['amount']))
+    mysql.connection.commit()
+    cur.close()
+    return 'success'
+
+
+
+#REQUIREMENTS
+@app.route('/requirement', methods=['POST'])
+def add_requirement():
+    json = request.json
+    cur = mysql.connection.cursor()
+    cur.execute("INSERT INTO requirement VALUES (%s, %s, %s, %s, %s)", (json['job_id'], json['requirement_name'], json['requirement_type'], json['description'], json['skill_name']))
+    mysql.connection.commit()
+    cur.close()
+    return 'success'  
+
+@app.route('/requirement', methods=['DELETE'])
+def delete_requirement():
+    json = request.json
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE FROM requirement where job_id = %s and requirement_name = %s and requirement_type = %s" , (json['job_id'], json['requirement_name'], json['requirement_type']))
+    mysql.connection.commit()
+    cur.close()
+    return 'success'
+
+
+
+
+
+
+
+
+
+
+
+
+
