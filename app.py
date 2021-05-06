@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_mysqldb import MySQL
 from flask_cors import CORS
 
@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'SimonSimon'
+app.config['MYSQL_PASSWORD'] = 'Arsenal.123'
 app.config['MYSQL_DB'] = 'network'
 CORS(app)
 mysql = MySQL(app)
@@ -209,7 +209,20 @@ def delete_requirement():
 
 
 
+## Complex Queries ##
 
+# Get all Students who applied to a certain Company with GPA of >= 85
+@app.route('/complex', methods = ['GET'])
+def get_First_Query():
+    json = request.json
+    cur = mysql.connection.cursor()
+    cur.execute(
+        "Select name, GPA from (Select id, name, GPA from network.degree INNER JOIN (Select student_id as id, name from network.student INNER JOIN (Select * from network.application where company_id = (Select company_id from network.company where company_name = 'Murex')) as MyCompany on MyCompany.student_id = network.student.id) as MyStudents on MyStudents.id = network.degree.student_id) as Result where Result.GPA >= 85"
+    )
+    res = []
+    for row in cur:
+        res.append(row)
+    return jsonify(res)
 
 
 

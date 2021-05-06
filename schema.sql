@@ -32,13 +32,12 @@ CREATE TABLE `network`.`alumni` (
     ON UPDATE CASCADE);
 
 CREATE TABLE `network`.`degree` (
-  `major` VARCHAR(200) NOT NULL,
   `student_id` INT(10) NOT NULL,
-  `type` VARCHAR(200) NOT NULL,
-  `GPA` INT(3) NULL,
-  `dateOfGraduation` DATE NULL,
-  PRIMARY KEY (`major`),
-  INDEX `student_id_idx` (`student_id` ASC) VISIBLE,
+  `major` VARCHAR(45) NOT NULL,
+  `type` VARCHAR(200) NULL,
+  `GPA` INT(3) NOT NULL,
+  `dateOfGraduation` DATE NOT NULL,
+  PRIMARY KEY (`student_id`),
     FOREIGN KEY (`student_id`)
     REFERENCES `network`.`student` (`id`)
     ON DELETE CASCADE
