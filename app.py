@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'SimonSimon'
+app.config['MYSQL_PASSWORD'] = 'scout is on saturday'
 app.config['MYSQL_DB'] = 'network'
 CORS(app)
 mysql = MySQL(app)
@@ -326,7 +326,7 @@ def update_review():
 ## Complex Queries ##
 
 # Get all Students who applied to a certain Company with GPA of >= 85
-@app.route('/complex1', methods = ['GET'])
+@app.route('/complex1', methods = ['POST'])
 def get_First_Query():
     json = request.json
     cur = mysql.connection.cursor()
@@ -339,7 +339,7 @@ def get_First_Query():
     return jsonify(res)
 
 # Get all job openings with a salary offering of more than 10,000$
-@app.route('/complex2', methods = ['GET'])
+@app.route('/complex2', methods = ['POST'])
 def get_Second_Query():
     json = request.json
     cur = mysql.connection.cursor()
@@ -350,7 +350,7 @@ def get_Second_Query():
     return jsonify(res)
 
 # Get all job openings with an "intern" term in the description from murex
-@app.route('/complex3', methods = ['GET'])
+@app.route('/complex3', methods = ['POST'])
 def get_Third_Query():
     json = request.json
     cur = mysql.connection.cursor()
@@ -361,7 +361,7 @@ def get_Third_Query():
     return jsonify(res)
 
 # get all students in CSE major with a graduation date before 2025
-@app.route('/complex4', methods = ['GET'])
+@app.route('/complex4', methods = ['POST'])
 def get_fourth_Query():
     json = request.json
     cur = mysql.connection.cursor()
