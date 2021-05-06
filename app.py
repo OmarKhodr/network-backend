@@ -207,7 +207,7 @@ def delete_requirement():
 
 #APPLICATION
 @app.route('/application', methods=['POST'])
-def add_position():
+def add_application():
     json = request.json
     cur = mysql.connection.cursor()
     cur.execute("INSERT INTO application VALUES (%s, %s, %s, %s, %s)", (json['student_id'], json['job_id'], json['submission_date'], json['status'], json['skill_name']))
@@ -216,7 +216,7 @@ def add_position():
     return 'success'
 
 @app.route('/application', methods=['DELETE'])
-def delete_position():
+def delete_application():
     json = request.json
     cur = mysql.connection.cursor()
     cur.execute("DELETE FROM application where student_id = %s and job_id = %s" , (json['student_id'], json['job_id']))
@@ -225,7 +225,7 @@ def delete_position():
     return 'success'
 
 @app.route('/application', methods = ['PATCH'])
-def update_position():
+def update_application():
     json = request.json
     cur = mysql.connection.cursor()
     cur.execute("Update application SET status = %s WHERE student_id = %s and job_id = %s", ([json['status'], json['student_id'], json['job_id']]))
@@ -236,7 +236,7 @@ def update_position():
 
 #COMPANY
 @app.route('/company', methods=['POST'])
-def add_position():
+def add_company():
     json = request.json
     cur = mysql.connection.cursor()
     cur.execute("INSERT INTO company VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (json['company_id'], json['company_name'], json['location'], json['number_of_employees'], json['company_address'], json['field'], json['phone_number'], json['company_email']))
@@ -245,7 +245,7 @@ def add_position():
     return 'success'
 
 @app.route('/company', methods=['DELETE'])
-def delete_position():
+def delete_company():
     json = request.json
     cur = mysql.connection.cursor()
     cur.execute("DELETE FROM company where company_id = %s" , (json['company_id']))
@@ -254,7 +254,7 @@ def delete_position():
     return 'success'
 
 @app.route('/company', methods = ['PATCH'])
-def update_position():
+def update_company():
     json = request.json
     cur = mysql.connection.cursor()
     cur.execute("Update company SET company_name = %s WHERE company_id = %s", ([json['company_name'], json['company_id']]))
@@ -265,7 +265,7 @@ def update_position():
 
 #REPRESENTATIVE
 @app.route('/representative', methods=['POST'])
-def add_position():
+def add_representative():
     json = request.json
     cur = mysql.connection.cursor()
     cur.execute("INSERT INTO representative VALUES (%s, %s, %s, %s, %s)", (json['company_id'], json['email'], json['phone_number'], json['rep_name'], json['positions']))
@@ -274,7 +274,7 @@ def add_position():
     return 'success'
 
 @app.route('/representative', methods=['DELETE'])
-def delete_position():
+def delete_representative():
     json = request.json
     cur = mysql.connection.cursor()
     cur.execute("DELETE FROM representative where company_id = %s and email = %s" , (json['company_id'], json['email']))
@@ -283,7 +283,7 @@ def delete_position():
     return 'success'
 
 @app.route('/representative', methods = ['PATCH'])
-def update_position():
+def update_representative():
     json = request.json
     cur = mysql.connection.cursor()
     cur.execute("Update representative SET rep_name = %s WHERE company_id = %s and email = %s", ([json['rep_name'], json['company_id'], json['email']]))
@@ -294,7 +294,7 @@ def update_position():
 
 #REVIEW
 @app.route('/review', methods=['POST'])
-def add_position():
+def add_review():
     json = request.json
     cur = mysql.connection.cursor()
     cur.execute("INSERT INTO review VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (json['review_id'], json['company_id'], json['student_id'], json['original_poster'], json['activity'], json['overall_rating'], json['recommend_rating'], json['interview_rating'], json['offer_reception'], json['subject'], json['body']))
@@ -303,7 +303,7 @@ def add_position():
     return 'success'
 
 @app.route('/review', methods=['DELETE'])
-def delete_position():
+def delete_review():
     json = request.json
     cur = mysql.connection.cursor()
     cur.execute("DELETE FROM review where review_id = %s" , (json['review_id']))
@@ -312,7 +312,7 @@ def delete_position():
     return 'success'
 
 @app.route('/review', methods = ['PATCH'])
-def update_position():
+def update_review():
     json = request.json
     cur = mysql.connection.cursor()
     cur.execute("Update review SET body = %s WHERE review_id = %s", ([json['body'], json['review_id']]))
@@ -360,6 +360,16 @@ def get_Third_Query():
         res.append(row)
     return jsonify(res)
 
+# get all students in CSE major with a graduation date before 2025
+@app.route('/complex4', methods = ['GET'])
+def get_fourth_Query():
+    json = request.json
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT company_name, job_name FROM jobposition inner join company on jobposition.company_id=company.company_id WHERE job_name like '%intern%' and company_name = 'murex'")
+    res = []
+    for row in cur:
+        res.append(row)
+    return jsonify(res)
 
 
 
