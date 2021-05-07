@@ -365,7 +365,7 @@ def get_Third_Query():
 def get_fourth_Query():
     json = request.json
     cur = mysql.connection.cursor()
-    cur.execute("SELECT s.id, s.name FROM student s JOIN degree d ON s.id=d.student_id WHERE dateOfGraduation <= \'2026-01-01\'")
+    cur.execute("SELECT s.id, s.name FROM student s JOIN degree d ON s.id=d.student_id WHERE dateOfGraduation <= \'2026-01-01\' AND major='CSE'")
     res = []
     for row in cur:
         res.append(row)
