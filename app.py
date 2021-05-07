@@ -297,7 +297,7 @@ def update_representative():
 def add_review():
     json = request.json
     cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO review VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (json['company_id'], json['student_id'], json['original_poster'], json['activity'], json['overall_rating'], json['recommend_rating'], json['interview_rating'], json['offer_reception'], json['subject'], json['body']))
+    cur.execute("INSERT INTO review (company_id, student_id, original_poster, activity, overall_rating, recommend_rating, interview_rating, offer_reception, subject, body) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (json['company_id'], json['student_id'], json['original_poster'], json['activity'], json['overall_rating'], json['recommend_rating'], json['interview_rating'], json['offer_reception'], json['subject'], json['body']))
     mysql.connection.commit()
     cur.close()
     return 'success'
