@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'lobster'
+app.config['MYSQL_PASSWORD'] = 'scout is on saturday'
 app.config['MYSQL_DB'] = 'network'
 CORS(app)
 mysql = MySQL(app)
