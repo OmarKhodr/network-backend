@@ -239,7 +239,7 @@ def update_application():
 def add_company():
     json = request.json
     cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO company VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (json['company_id'], json['company_name'], json['location'], json['number_of_employees'], json['company_address'], json['field'], json['phone_number'], json['company_email']))
+    cur.execute("INSERT INTO company VALUES (%s, %s, %s, %s, %s, %s, %s)", (json['company_name'], json['location'], json['number_of_employees'], json['company_address'], json['field'], json['phone_number'], json['company_email']))
     mysql.connection.commit()
     cur.close()
     return 'success'
@@ -297,7 +297,7 @@ def update_representative():
 def add_review():
     json = request.json
     cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO review VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (json['review_id'], json['company_id'], json['student_id'], json['original_poster'], json['activity'], json['overall_rating'], json['recommend_rating'], json['interview_rating'], json['offer_reception'], json['subject'], json['body']))
+    cur.execute("INSERT INTO review VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (json['company_id'], json['student_id'], json['original_poster'], json['activity'], json['overall_rating'], json['recommend_rating'], json['interview_rating'], json['offer_reception'], json['subject'], json['body']))
     mysql.connection.commit()
     cur.close()
     return 'success'
@@ -370,12 +370,3 @@ def get_fourth_Query():
     for row in cur:
         res.append(row)
     return jsonify(res)
-
-
-
-
-
-
-
-
-
