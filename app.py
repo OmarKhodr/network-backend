@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'scout is on saturday'
+app.config['MYSQL_PASSWORD'] = 'lobster'
 app.config['MYSQL_DB'] = 'network'
 CORS(app)
 mysql = MySQL(app)
@@ -239,7 +239,7 @@ def update_application():
 def add_company():
     json = request.json
     cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO company VALUES (%s, %s, %s, %s, %s, %s, %s)", (json['company_name'], json['location'], json['number_of_employees'], json['company_address'], json['field'], json['phone_number'], json['company_email']))
+    cur.execute("INSERT INTO company (`company_name`, `location`, `number_of_employees`, `company_address`, `field`, `phone_number`, `company_email`) VALUES (%s, %s, %s, %s, %s, %s, %s)", (json['company_name'], json['location'], json['number_of_employees'], json['company_address'], json['field'], json['phone_number'], json['company_email']))
     mysql.connection.commit()
     cur.close()
     return 'success'

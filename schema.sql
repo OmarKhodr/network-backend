@@ -53,7 +53,7 @@ CREATE TABLE `network`.`skill` (
     ON UPDATE CASCADE);
 
 CREATE TABLE `network`.`company` (
-    `company_id` INT(10) NOT NULL,
+    `company_id` INT(10) NOT NULL AUTO_INCREMENT,
     `company_name` VARCHAR(20) NOT NULL,
     `location` VARCHAR(200) NOT NULL,
     `number_of_employees` INT,
@@ -136,7 +136,7 @@ CREATE TABLE `network`.`representative` (
 );
 
 CREATE TABLE `network`.`review` (
-    `review_id` INT(10) NOT NULL,
+    `review_id` INT(10) NOT NULL AUTO_INCREMENT,
     `company_id` INT(10) NOT NULL,
     `student_id` INT(10) NOT NULL,
     `original_poster` VARCHAR(20) NOT NULL,
