@@ -210,7 +210,7 @@ def delete_requirement():
 def add_application():
     json = request.json
     cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO application VALUES (%s, %s, %s, %s, %s)", (json['student_id'], json['job_id'], json['submission_date'], json['status'], json['skill_name']))
+    cur.execute("INSERT INTO application VALUES (%s, %s, %s, %s)", (json['student_id'], json['company_id'], json['submission_date'], json['status']))
     mysql.connection.commit()
     cur.close()
     return 'success'
@@ -219,7 +219,7 @@ def add_application():
 def delete_application():
     json = request.json
     cur = mysql.connection.cursor()
-    cur.execute("DELETE FROM application where student_id = %s and job_id = %s" , (json['student_id'], json['job_id']))
+    cur.execute("DELETE FROM application where id = %s " , (json['id']))
     mysql.connection.commit()
     cur.close()
     return 'success'
@@ -228,7 +228,7 @@ def delete_application():
 def update_application():
     json = request.json
     cur = mysql.connection.cursor()
-    cur.execute("Update application SET status = %s WHERE student_id = %s and job_id = %s", ([json['status'], json['student_id'], json['job_id']]))
+    cur.execute("Update application SET status = %s WHERE id = %s ", ([json['id']]))
     mysql.connection.commit()
     cur.close()
     return 'success'
