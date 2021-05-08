@@ -172,7 +172,7 @@ UPDATE `network`.`degree` SET `GPA` = '96' WHERE (`student_id` = '1');
 UPDATE `network`.`degree` SET `GPA` = '82' WHERE (`student_id` = '2');
 INSERT INTO `network`.`application` (`student_id`, `company_id`, `id`, `submission_date`, `status`) VALUES ('1', '1', '1', '2021-01-03', 'Submitted');
 INSERT INTO `network`.`application` (`student_id`, `company_id`, `id`, `submission_date`, `status`) VALUES ('2', '1', '2', '2021-01-03', 'Submitted');
-
+INSERT INTO `network`.`salary` (`job_id`, `amount`, `bonus`, `stocks`, `payment_rate`) VALUES ('2', '20000', '2000', '0', 'Year');
 
 
 
