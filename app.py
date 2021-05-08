@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'scout is on saturday'
+app.config['MYSQL_PASSWORD'] = 'Arsenal.123'
 app.config['MYSQL_DB'] = 'network'
 CORS(app)
 mysql = MySQL(app)
@@ -331,7 +331,7 @@ def get_First_Query():
     json = request.json
     cur = mysql.connection.cursor()
     cur.execute(
-        "Select name, GPA from (Select id, name, GPA from network.degree INNER JOIN (Select student_id as id, name from network.student INNER JOIN (Select * from network.application where company_id = (Select company_id from network.company where company_name = 'Murex')) as MyCompany on MyCompany.student_id = network.student.id) as MyStudents on MyStudents.id = network.degree.student_id) as Result where Result.GPA >= 85"
+        "Select name, GPA from (Select id, name, GPA from network.degree INNER JOIN (Select student_id as id, name from network.student INNER JOIN (Select * from network.application where company_id = (Select company_id from network.company where company_name = %s)) as MyCompany on MyCompany.student_id = network.student.id) as MyStudents on MyStudents.id = network.degree.student_id) as Result where Result.GPA >= %s", ([[json['company']], json['GPA']])
     )
     res = []
     for row in cur:
