@@ -354,7 +354,7 @@ def get_Second_Query():
 def get_Third_Query():
     json = request.json
     cur = mysql.connection.cursor()
-    cur.execute("SELECT company_name, job_name FROM jobposition inner join company on jobposition.company_id=company.company_id WHERE job_name like '%intern%' and company_name = %s", ([json['company']]))
+    cur.execute("SELECT company_name, job_name FROM jobposition inner join company on jobposition.company_id=company.company_id WHERE job_name like '%intern%' ")
     res = []
     for row in cur:
         res.append(row)
