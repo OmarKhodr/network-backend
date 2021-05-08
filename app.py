@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'scout is on saturday'
+app.config['MYSQL_PASSWORD'] = 'Arsenal.123'
 app.config['MYSQL_DB'] = 'network'
 CORS(app)
 mysql = MySQL(app)
@@ -73,7 +73,7 @@ def delete_course():
 def add_alumni():
     json = request.json
     cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO alumni(student_id, yearsOfExperience, openToJob, currentJob) VALUES (%s, %s, %s, %s)", (int(json['student_id']), int(json['yearsOfExperience']), int(json['openToJob']), json['currentJob']))
+    cur.execute("INSERT INTO alumni(student_id, yearsOfExperience, openToJob, currentJob) VALUES (%s, %s, %s, %s)", (int(json['student_id']), int(json['yearsOfExperience']), json['openToJob'], json['currentJob']))
     mysql.connection.commit()
     cur.close()
     return 'success'
@@ -117,7 +117,7 @@ def update_degree():
 def add_skill():
     json = request.json
     cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO skill(student_id, name) VALUES (%s, %s)", (int(json['student_id']), json['name']))
+    cur.execute("INSERT INTO skill(student_id, name) VALUES (%s, %s)", (json['student_id'], json['name']))
     mysql.connection.commit()
     cur.close()
     return 'success'
@@ -139,7 +139,7 @@ def delete_skill():
 def add_position():
     json = request.json
     cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO jobposition VALUES (%s, %s, %s, %s, %s)", (json['job_id'], json['company_id'], json['job_name'], json['location'], json['n_openings']))
+    cur.execute("INSERT INTO jobposition(company_id,job_name,location,number_of_openings) VALUES (%s, %s, %s, %s)", (json['company_id'], json['job_name'], json['location'], json['n_openings']))
     mysql.connection.commit()
     cur.close()
     return 'success'
@@ -169,7 +169,7 @@ def update_position():
 def add_salary():
     json = request.json
     cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO salary VALUES (%s, %s, %s, %s, %s)", (json['job_id'], json['amount'], json['bonus'], json['stocks'], json['payment_rate']))
+    cur.execute("INSERT INTO salary(job_id,amount,bonus,stocks,payment_rate) VALUES (%s, %s, %s, %s, %s)", (json['job_id'], json['amount'], json['bonus'], json['stocks'], json['payment_rate']))
     mysql.connection.commit()
     cur.close()
     return 'success'  

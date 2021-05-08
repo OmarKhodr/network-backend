@@ -65,7 +65,7 @@ CREATE TABLE `network`.`company` (
 );
 
 CREATE TABLE `network`.`jobposition` (
-    `job_id` INT(10) NOT NULL,
+    `job_id` INT(10) NOT NULL AUTO_INCREMENT,
     `company_id` INT(10) NOT NULL,
     `job_name` VARCHAR(200) NOT NULL,
     `location` VARCHAR(200) NOT NULL,
@@ -157,8 +157,6 @@ CREATE TABLE `network`.`review` (
      ON DELETE CASCADE
      ON UPDATE CASCADE
 );
-
---Populate
 
 INSERT INTO `network`.`company` (`company_id`, `company_name`, `location`, `number_of_employees`, `company_address`, `field`, `phone_number`, `company_email`) VALUES ('1', 'Murex', 'Beirut', '3000', 'Beirut', 'Fintech', '12356789', 'murex@murex.com');
 INSERT INTO `network`.`company` (`company_id`, `company_name`, `location`, `number_of_employees`, `company_address`, `field`, `phone_number`, `company_email`) VALUES ('2', 'CME', 'Beirut', '100', 'Beiirut', 'Software Development', '1469876543', 'cme@cme.com');
