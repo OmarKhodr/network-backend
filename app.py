@@ -343,7 +343,7 @@ def get_First_Query():
 def get_Second_Query():
     json = request.json
     cur = mysql.connection.cursor()
-    cur.execute("SELECT company_name, job_name, amount FROM jobposition inner join company on jobposition.company_id=company.company_id  inner join salary on jobposition.job_id=salary.job_id WHERE amount > 10000")
+    cur.execute("SELECT company_name, job_name, amount FROM jobposition inner join company on jobposition.company_id=company.company_id  inner join salary on jobposition.job_id=salary.job_id WHERE amount > %s", ([json['amount']]))
     res = []
     for row in cur:
         res.append(row)
@@ -354,7 +354,7 @@ def get_Second_Query():
 def get_Third_Query():
     json = request.json
     cur = mysql.connection.cursor()
-    cur.execute("SELECT company_name, job_name FROM jobposition inner join company on jobposition.company_id=company.company_id WHERE job_name like '%intern%' and company_name = 'murex'")
+    cur.execute("SELECT company_name, job_name FROM jobposition inner join company on jobposition.company_id=company.company_id WHERE job_name like '%intern%' and company_name = %s", ([json['company']]))
     res = []
     for row in cur:
         res.append(row)
