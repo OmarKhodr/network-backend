@@ -210,7 +210,7 @@ def delete_requirement():
 def add_application():
     json = request.json
     cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO application VALUES (%s, %s, %s, %s)", (json['student_id'], json['company_id'], json['submission_date'], json['status']))
+    cur.execute("INSERT INTO application(student_id,company_id,submission_date,status) VALUES (%s, %s, %s, %s)", (json['student_id'], json['company_id'], json['submission_date'], json['status']))
     mysql.connection.commit()
     cur.close()
     return 'success'
