@@ -6,14 +6,13 @@ app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'scout is on saturday'
+app.config['MYSQL_PASSWORD'] = 'SimonSimon'
 app.config['MYSQL_DB'] = 'network'
 CORS(app)
 mysql = MySQL(app)
 
 
 # STUDENT #
-
 @app.route('/student', methods=['POST'])
 def add_student():
     json = request.json
@@ -45,7 +44,6 @@ def update_student():
 
 
 # COURSE #
-
 @app.route('/course', methods=['POST'])
 def add_course():
     json = request.json
@@ -352,7 +350,6 @@ def get_Second_Query():
 # Get all job openings with an "intern" term in the description from murex
 @app.route('/complex3', methods = ['POST'])
 def get_Third_Query():
-    json = request.json
     cur = mysql.connection.cursor()
     cur.execute("SELECT company_name, job_name FROM jobposition inner join company on jobposition.company_id=company.company_id WHERE job_name like '%intern%' ")
     res = []
@@ -361,12 +358,18 @@ def get_Third_Query():
     return jsonify(res)
 
 # get all students in CSE major with a graduation date before 2025
-@app.route('/complex4', methods = ['POST'])
-def get_fourth_Query():
-    json = request.json
+@app.route('/createView', methods = ['POST'])
+def create_query():
     cur = mysql.connection.cursor()
-    cur.execute("SELECT s.id, s.name FROM student s JOIN degree d ON s.id=d.student_id WHERE dateOfGraduation <= \'2026-01-01\' AND major='CSE'")
+    cur.execute("CREATE view graduation AS SELECT s.id, s.name FROM student s JOIN degree d ON s.id=d.student_id WHERE dateOfGraduation <= '2026-01-01' AND major='CSE'")
+    return jsonify(results="success")
+
+@app.route('/callView', methods = ['POST'])
+def view_query():
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM graduation")
     res = []
     for row in cur:
         res.append(row)
     return jsonify(res)
+    
