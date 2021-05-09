@@ -360,8 +360,9 @@ def get_Third_Query():
 # get all students in CSE major with a graduation date before 2025
 @app.route('/createView', methods = ['POST'])
 def create_query():
+    json = request.json
     cur = mysql.connection.cursor()
-    cur.execute("CREATE view graduation AS SELECT s.id, s.name FROM student s JOIN degree d ON s.id=d.student_id WHERE dateOfGraduation <= '2026-01-01' AND major='CSE'")
+    cur.execute("CREATE view graduation AS SELECT s.id, s.name FROM student s JOIN degree d ON s.id=d.student_id WHERE dateOfGraduation <= %s AND major=%s", ([json['date'], json['major']]))
     return jsonify(results="success")
 
 @app.route('/callView', methods = ['POST'])
