@@ -215,14 +215,14 @@ Select name, GPA from (Select id, name, GPA from network.degree INNER JOIN
 (Select company_id from network.company where company_name = 'Murex'))
  as MyCompany on MyCompany.student_id = network.student.id) as 
  MyStudents on MyStudents.id = network.degree.student_id) as 
- Result where Result.GPA >= 85
+ Result where Result.GPA >= 85;
 
  SELECT company_name, job_name, amount FROM network.jobposition 
  inner join network.company on network.jobposition.company_id=network.company.company_id  
- inner join network.salary on network.jobposition.job_id=network.salary.job_id WHERE amount > 20000
+ inner join network.salary on network.jobposition.job_id=network.salary.job_id WHERE amount > 20000;
 
 
-SELECT company_name, job_name FROM network.jobposition inner join network.company on network.jobposition.company_id=network.company.company_id WHERE job_name like '%intern%' 
+SELECT company_name, job_name FROM network.jobposition inner join network.company on network.jobposition.company_id=network.company.company_id WHERE job_name like '%intern%' ;
 
 
- SELECT s.id, s.name FROM network.student s JOIN network.degree d ON s.id=d.student_id WHERE dateOfGraduation <= '2026-01-01' AND major='CSE'
+SELECT s.id, s.name FROM network.student s JOIN network.degree d ON s.id=d.student_id WHERE dateOfGraduation <= '2026-01-01' AND major='CSE';
